@@ -1,0 +1,3 @@
+﻿  error_01.cpp
+C:\Users\newya\source\repos\error_01\error_01.cpp(27,1): warning C4267: =: преобразование из "size_t" в "int"; возможна потеря данных
+  error_01.vcxproj -> C:\Users\newya\source\repos\error_01\x64\Debug\error_01.exe
