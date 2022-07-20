@@ -3,33 +3,49 @@
 
 #include <iostream>
 #include <string>
-#include <Windows.h>
+#include <Windows.h>  //для SetConsoleCP(1251);
+#include <exception>
 
 
-
-
-class My_error : public std::exception
+class My_error :public std::exception
 {
 public:
-	My_error(std::string word, int size) : std::exception()
+	My_error(){}
+
+	const char* what() const override
+	{
+		return "Вы ввели слово запретной длины! До свидания ";
+	}
+};
+
+
+
+
+
+
+
+class My_length : public My_error 
+{
+public:
+	My_length(std::string word, int size)
 	{
 		this -> word = word;
 		this -> size = size;
 	};
 	
-	~My_error() = default;
+	~My_length() = default;
 
 	
 
-	int function(std::string str, int forbidden_length)
+	void function(std::string str, int forbidden_length)
 	{
 		
 		size = str.length();
 		if (size != forbidden_length) 
 		{
-			throw My_error(str, forbidden_length);
+			throw My_error ();
 		}		
-		return size;
+		//return size;
 	}
 
 
@@ -39,7 +55,6 @@ public:
 
 	}
 	
-
 
 private:
 	int size = 0;
@@ -68,22 +83,23 @@ int main()
 		std::cin >> length;
 		std::cout << "Введите слово: " << std::endl;
 		std::cin >> word;
-		My_error my_errror{ word, length };
-
+		My_length my_length{ word, length };
+		
 		try
 		{
-			my_errror.function(word, length);
+			my_length.function(word, length);
 		}
 		
-		catch (...) {
-			std::cout << "Вы ввели слово запретной длины!До свидания" << std::endl;
-			break;
+
+		catch (const My_error &A)
+		{
+			std::cout << A.what();
 		}
+
 		
+		my_length.print();
 		
-		my_errror.print();
-		
-		my_errror.~My_error();
+		my_length.~My_length();
 	}
 	
 	
