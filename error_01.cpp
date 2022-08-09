@@ -7,16 +7,6 @@
 #include <exception>
 
 
-class My_error :public std::exception
-{
-public:
-	My_error(){}
-
-	const char* what() const override
-	{
-		return "Вы ввели слово запретной длины! До свидания ";
-	}
-};
 
 
 
@@ -24,43 +14,24 @@ public:
 
 
 
-class My_length : public My_error 
-{
-public:
-	My_length(std::string word, int size)
-	{
-		this -> word = word;
-		this -> size = size;
-	};
-	
-	~My_length() = default;
+
+
 
 	
 
-	void function(std::string str, int forbidden_length)
+	int function(std::string str, int forbidden_length)
 	{
-		
-		size = str.length();
+		int size;
+		 size = str.length();
 		if (size != forbidden_length) 
 		{
-			throw My_error ();
+			throw std::exception ("Вы ввели слово запретной длины! До свидания");
 		}		
-		//return size;
+		return size;
 	}
 
 
-	void print()
-	{
-		std::cout << "Длина слова " << "< " << word << " > " << "равна: " << size << std::endl;
 
-	}
-	
-
-private:
-	int size = 0;
-	std::string word;
-
-};
 
 
 
@@ -83,23 +54,19 @@ int main()
 		std::cin >> length;
 		std::cout << "Введите слово: " << std::endl;
 		std::cin >> word;
-		My_length my_length{ word, length };
-		
+
 		try
 		{
-			my_length.function(word, length);
+			 function(word, length);
+			
 		}
-		
-
-		catch (const My_error &A)
+		catch (const std::exception &ex )
 		{
-			std::cout << A.what();
+			std::cout << ex.what();
+			break;
 		}
-
+		std::cout << "Длина слова " << word << " равна " << length << std::endl;
 		
-		my_length.print();
-		
-		my_length.~My_length();
 	}
 	
 	
