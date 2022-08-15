@@ -48,10 +48,11 @@ int main()
 	
 
 	
-	while (!0)
-	{
+	
 		std::cout << "Введите запретную длину: " << std::endl;
 		std::cin >> length;
+		while (!0)
+		{
 		std::cout << "Введите слово: " << std::endl;
 		std::cin >> word;
 
