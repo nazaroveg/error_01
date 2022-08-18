@@ -23,7 +23,7 @@
 	{
 		int size;
 		 size = str.length();
-		if (size != forbidden_length) 
+		if (size == forbidden_length) 
 		{
 			throw std::exception ("Вы ввели слово запретной длины! До свидания");
 		}		
@@ -66,7 +66,7 @@ int main()
 			std::cout << ex.what();
 			break;
 		}
-		std::cout << "Длина слова " << word << " равна " << length << std::endl;
+		std::cout << "Длина слова " << word << " равна " << function(word,length) << std::endl;
 		
 	}
 	
